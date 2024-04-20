@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useGlobalState } from '../GlobalStateContext';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,7 +17,7 @@ function Start() {
   const { globalArray, setGlobalArray } = useGlobalState();
   const [nameInput, setNameInput] = useState('');
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const addItemToArray = (e) => {
     e.preventDefault(); // Prevent form submission from reloading the page
@@ -40,7 +40,7 @@ function Start() {
 
   const handlePlayClick = () => {
     // Redirect the user to the Dares page
-    //history.push('/Dares');
+    navigate('/Dares');
   };
 
 
