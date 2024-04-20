@@ -23,24 +23,19 @@ function Dares() {
     const postData = {
       contents: [{
         parts: [{
-          text: `give me 5 funny dares. Give your output as a put a json file. Below is how your output should be formatted:\n\n` +
+          text: `give me 3 funny outdoor dares bases on the objects given. Give your output as a put a json file. Below is an example input and how the dares are, and how your output should be formatted:\n\n` +
+          "Objects detected: Chex Mix, Diet Coke, Popcorn, Water Bottle, Phone" +
             "```json\n" +
             "{\n" +
             "  \"dares\": [\n" +
             "    {\n" +
-            "      \"dare\": \"Dare 1\"\n" +
+            "      \"dare\": \"Find a squirrel and see if you can convince it to take a Chex Mix piece from your hand \"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"dare\": \"Dare 2\"\n" +
+            "      \"dare\": \"Sip the Diet Coke, then pretend to be a park fountain and try spitting the  soda into the air and catching back in your mouth (be mindful of surroundings and avoid getting others wet).\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"dare\": \"Dare 3\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"dare\": \"Dare 4\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"dare\": \"Dare 5\"\n" +
+            "      \"dare\": \"Balance the phone on your head and then do 5 push ups\"\n" +
             "    }\n" +
             "  ]\n" +
             "}\n" +
