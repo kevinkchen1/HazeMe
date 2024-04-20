@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useGlobalState } from '../GlobalStateContext';
-import { Button } from "@/components/ui/button"
-
 
 function Start() {
   const { globalArray, setGlobalArray } = useGlobalState();
@@ -19,9 +17,16 @@ function Start() {
     }
   };
 
+  const resetGame = () => {
+    // Clear local storage
+    localStorage.removeItem('globalArray');
+    // Reset the global array state
+    setGlobalArray([]);
+  };
+
   return (
     <div>
-      <h1 className='font-extrabold'>Start Page</h1>
+      <h1>Start Page</h1>
       <form onSubmit={addItemToArray}>
         <textarea
           value={nameInput}
@@ -29,7 +34,7 @@ function Start() {
           placeholder="Enter a name and press Enter"
           rows="3"
         ></textarea>
-        <Button  type="submit">Add Name</Button>
+        <button type="submit">Add Name</button>
       </form>
       <div>
         <ul>
@@ -38,6 +43,7 @@ function Start() {
           ))}
         </ul>
       </div>
+      <button onClick={resetGame}>Reset Game</button>
     </div>
   );
 }
