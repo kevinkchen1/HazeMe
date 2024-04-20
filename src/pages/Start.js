@@ -40,7 +40,7 @@ function Start() {
 
   const handlePlayClick = () => {
     // Redirect the user to the Dares page
-    navigate('/Dares');
+    navigate('/Camera');
   };
 
 
@@ -64,7 +64,7 @@ function Start() {
         </ul>
       </div>
       <AlertDialog>
-  <AlertDialogTrigger>Reset Game</AlertDialogTrigger>
+  <AlertDialogTrigger className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" >Reset Game</AlertDialogTrigger>
   <AlertDialogContent>
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -74,17 +74,32 @@ function Start() {
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={resetGame}>Yes</AlertDialogAction>
+      <AlertDialogAction 
+        onClick={resetGame} 
+      >
+        Yes
+      </AlertDialogAction>
+      
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
-<button onClick={handlePlayClick}>Play</button>
+
+<div style={{ marginTop: '10px' }}>
+
+<button 
+        onClick={handlePlayClick} 
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Play
+</button>
 </div>
-      
+
+</div>
+  
   );
 }
 
-
+/*<AlertDialogAction onClick={resetGame} className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Yes</AlertDialogAction>*/
 
 
 /*
