@@ -3,16 +3,15 @@ import { useGlobalState } from '../GlobalStateContext';
 function Camera() {
   const { globalArray, setGlobalArray } = useGlobalState();
 
-  const addItemToArray = (item) => {
-    setGlobalArray([...globalArray, item]);
-  };
-
   return (
     <div>
       <h1>Camera Page</h1>
-      <button onClick={() => addItemToArray('New Item')}>Add Item</button>
       <div>
-        {globalArray}
+        <ul>
+          {globalArray.map((item, index) => (
+            <li key={index}>{item.name} - {item.points} Points</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
