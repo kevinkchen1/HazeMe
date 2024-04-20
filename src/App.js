@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GlobalStateProvider } from './GlobalStateContext'; // Import the provider
+
+// Pages
+import Start from './pages/Start';
+import Camera from './pages/Camera';
+import Dares from './pages/Dares';
+import Leaderboard from './pages/Leaderboard';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalStateProvider>  {/* Wrap the router in the GlobalStateProvider */}
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Start />} />
+            <Route path="/camera" element={<Camera />} />
+            <Route path="/dares" element={<Dares />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </GlobalStateProvider>
   );
 }
 
