@@ -1,9 +1,21 @@
 import { useState } from 'react';
 import { useGlobalState } from '../GlobalStateContext';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 function Start() {
   const { globalArray, setGlobalArray } = useGlobalState();
   const [nameInput, setNameInput] = useState('');
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const addItemToArray = (e) => {
     e.preventDefault(); // Prevent form submission from reloading the page
@@ -31,7 +43,7 @@ function Start() {
         <textarea
           value={nameInput}
           onChange={(e) => setNameInput(e.target.value)}
-          placeholder="Enter a name and press Enter"
+          placeholder="Enter a name and click Add Name"
           rows="3"
         ></textarea>
         <button type="submit">Add Name</button>
@@ -43,9 +55,36 @@ function Start() {
           ))}
         </ul>
       </div>
+      <AlertDialog>
+  <AlertDialogTrigger>Reset Game</AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This will reset the scores for all players.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction onClick={resetGame}>Yes</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+
+    </div>
+      
+  );
+}
+
+
+
+
+/*
       <button onClick={resetGame}>Reset Game</button>
     </div>
   );
 }
+*/
+
 
 export default Start;
