@@ -29,7 +29,7 @@ function Start() {
           placeholder="Enter a name and press Enter"
           rows="3"
         ></textarea>
-        <Button variant="outline" type="submit">Add Name</Button>
+        <Button  type="submit">Add Name</Button>
       </form>
       <div>
         <ul>
