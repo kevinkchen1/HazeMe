@@ -85,7 +85,7 @@ function Start() {
 
   const handlePlayClick = () => {
     // Redirect the user to the Dares page
-    navigate('/Dares');
+    navigate('/Camera');
   };
 
 
@@ -99,7 +99,7 @@ function Start() {
           placeholder="Enter a name and click Add Name"
           rows="3"
         ></textarea>
-        <button type="submit">Add Name</button>
+        <button type="submit" className="bg-blue-300 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors">Add Name</button>
       </form>
       <div>
         <ul>
@@ -123,27 +123,42 @@ function Start() {
         </ul>
       </div>
       <AlertDialog>
-  <AlertDialogTrigger>Reset Game</AlertDialogTrigger>
+      <AlertDialogTrigger className="bg-red-300 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition-colors" >Reset Game</AlertDialogTrigger>
   <AlertDialogContent>
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>
-        This will reset the scores for all players.
+        This will reset the scores and remove all players.
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={resetGame}>Yes</AlertDialogAction>
+      <AlertDialogAction 
+        onClick={resetGame} 
+      >
+        Yes
+      </AlertDialogAction>
+      
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
-<button onClick={handlePlayClick}>Play</button>
+
+<div style={{ marginTop: '10px' }}>
+
+<button 
+        onClick={handlePlayClick} 
+        className="bg-green-300 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition-colors"
+      >
+        Play
+</button>
 </div>
-      
+
+</div>
+  
   );
 }
 
-
+/*<AlertDialogAction onClick={resetGame} className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Yes</AlertDialogAction>*/
 
 
 /*
@@ -155,3 +170,4 @@ function Start() {
 
 
 export default Start;
+
