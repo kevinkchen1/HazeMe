@@ -35,6 +35,25 @@ function Camera() {
     return globalArray.length > 0 ? {...globalArray[0], index: 0} : null;
   });
   
+  useEffect(() => {
+    // Find the current player
+    const currentPlayerIndex = globalArray.findIndex(player => player.isCurrent);
+    if (currentPlayerIndex !== -1) {
+        setCurrentPlayer({...globalArray[currentPlayerIndex], index: currentPlayerIndex});
+    } else if (globalArray.length > 0) {
+        // No current player set, default to the first player
+        setCurrentPlayer({...globalArray[0], index: 0, isCurrent: true});
+        const updatedArray = globalArray.map((player, index) => ({
+            ...player,
+            isCurrent: index === 0
+        }));
+        setGlobalArray(updatedArray);
+    } else {
+        // No players at all, reset to null
+        setCurrentPlayer(null);
+    }
+}, [globalArray, setGlobalArray]);
+
 
 
 
