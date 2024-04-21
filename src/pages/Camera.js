@@ -27,32 +27,34 @@ function Camera() {
   const [content, setContent] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dareLoading, setDareLoading] = useState(false); // New state for dare generation loading
+  const [cameraFacing, setCameraFacing] = useState('user'); // 'user' for front and 'environment' for rear
+
   const navigate = useNavigate();
 
 
   const { globalArray, setGlobalArray } = useGlobalState(); // Use global state
   const [currentPlayer, setCurrentPlayer] = useState(() => {
-    return globalArray.length > 0 ? {...globalArray[0], index: 0} : null;
+    return globalArray.length > 0 ? { ...globalArray[0], index: 0 } : null;
   });
-  
+
   useEffect(() => {
     // Find the current player
     const currentPlayerIndex = globalArray.findIndex(player => player.isCurrent);
     if (currentPlayerIndex !== -1) {
-        setCurrentPlayer({...globalArray[currentPlayerIndex], index: currentPlayerIndex});
+      setCurrentPlayer({ ...globalArray[currentPlayerIndex], index: currentPlayerIndex });
     } else if (globalArray.length > 0) {
-        // No current player set, default to the first player
-        setCurrentPlayer({...globalArray[0], index: 0, isCurrent: true});
-        const updatedArray = globalArray.map((player, index) => ({
-            ...player,
-            isCurrent: index === 0
-        }));
-        setGlobalArray(updatedArray);
+      // No current player set, default to the first player
+      setCurrentPlayer({ ...globalArray[0], index: 0, isCurrent: true });
+      const updatedArray = globalArray.map((player, index) => ({
+        ...player,
+        isCurrent: index === 0
+      }));
+      setGlobalArray(updatedArray);
     } else {
-        // No players at all, reset to null
-        setCurrentPlayer(null);
+      // No players at all, reset to null
+      setCurrentPlayer(null);
     }
-}, [globalArray, setGlobalArray]);
+  }, [globalArray, setGlobalArray]);
 
 
 
@@ -75,7 +77,7 @@ function Camera() {
   }, [isCameraOn]);
 
 
-  
+
 
   const takePicture = () => {
     if (photoRef.current && videoRef.current) {
@@ -103,11 +105,19 @@ function Camera() {
     setLoading(false);
     getVideo();
   };
-  
+
 
   const getVideo = () => {
     setIsCameraOn(true);
-    navigator.mediaDevices.getUserMedia({ video: true })
+    if (videoRef.current && videoRef.current.srcObject) {
+      videoRef.current.srcObject.getTracks().forEach(track => track.stop()); // Stop any existing streams
+    }
+
+    const constraints = {
+      video: { facingMode: cameraFacing } // Use the state to set camera facing mode
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
       .then((stream) => {
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -117,6 +127,11 @@ function Camera() {
         console.error("Error accessing the camera:", err);
         alert('Failed to access the camera. Check console for more details.');
       });
+  };
+
+  const toggleCamera = () => {
+    setCameraFacing(prevFacing => prevFacing === 'user' ? 'environment' : 'user');
+    getVideo(); // Reinitialize the camera with the new facing mode
   };
 
   const fetchDare = async (objects, retryCount = 3) => {
@@ -235,28 +250,28 @@ function Camera() {
   useEffect(() => {
     console.log("Current global array:", globalArray);
     console.log("Current player:", currentPlayer);
-}, [globalArray, currentPlayer]);
+  }, [globalArray, currentPlayer]);
 
 
 
 
-const completeDare = (dareIndex) => {
-  if (!currentPlayer || currentPlayer.index === undefined || currentPlayer.index >= globalArray.length) {
-    console.error("No current player set or invalid index");
-    return; // Early return if no current player is set or index is out of bounds
-  }
+  const completeDare = (dareIndex) => {
+    if (!currentPlayer || currentPlayer.index === undefined || currentPlayer.index >= globalArray.length) {
+      console.error("No current player set or invalid index");
+      return; // Early return if no current player is set or index is out of bounds
+    }
 
-  const newPoints = parseInt(content[dareIndex].points.split(' ')[0], 10);
-  const updatedGlobalArray = [...globalArray];
-  updatedGlobalArray[currentPlayer.index].points += newPoints; // Update points
-  setGlobalArray(updatedGlobalArray);
+    const newPoints = parseInt(content[dareIndex].points.split(' ')[0], 10);
+    const updatedGlobalArray = [...globalArray];
+    updatedGlobalArray[currentPlayer.index].points += newPoints; // Update points
+    setGlobalArray(updatedGlobalArray);
 
-  // Cycle to the next player
-  const nextPlayerIndex = (currentPlayer.index + 1) % globalArray.length;
-  setCurrentPlayer({...updatedGlobalArray[nextPlayerIndex], index: nextPlayerIndex});
-  navigate('/leaderboard');
+    // Cycle to the next player
+    const nextPlayerIndex = (currentPlayer.index + 1) % globalArray.length;
+    setCurrentPlayer({ ...updatedGlobalArray[nextPlayerIndex], index: nextPlayerIndex });
+    navigate('/leaderboard');
 
-};
+  };
 
 
 
@@ -269,7 +284,11 @@ const completeDare = (dareIndex) => {
           <div className="absolute top-10 w-full text-center z-20 text-white">
             Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
           </div>
-          <Button onClick={takePicture} className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-500">Take Picture</Button>
+          <div>
+            <Button onClick={toggleCamera} className="absolute bottom-10 right-1/2 mr-4 transform -slate-500">Flip Camera</Button>
+            <Button onClick={takePicture} className="absolute bottom-10 left-1/2 transform bg-slate-500">Take Picture</Button>
+
+          </div>
         </>
       ) : imageSrc ? (
         <>
