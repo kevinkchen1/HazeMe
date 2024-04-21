@@ -139,7 +139,7 @@ function Camera() {
       }]
     };
 
-    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyA8z2S8gm-428F4Oovkwlj7Sa8lIrGzBRA';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
     try {
       const response = await fetch(url, {
         method: 'POST',
