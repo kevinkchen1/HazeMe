@@ -7,6 +7,7 @@ import Start from './pages/Start';
 import Camera from './pages/Camera';
 import Dares from './pages/Dares';
 import Leaderboard from './pages/Leaderboard';
+import Home from 'pages/Home';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Start />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/start" element={<Start />} />
             <Route path="/camera" element={<Camera />} />
             <Route path="/dares" element={<Dares />} />
             <Route path="/leaderboard" element={<Leaderboard />} />

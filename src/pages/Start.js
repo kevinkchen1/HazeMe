@@ -1,7 +1,16 @@
 import { useState } from 'react';
 import { useGlobalState } from '../GlobalStateContext';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,161 +22,87 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardImage,
-  MDBBtn
- } from 'mdb-react-ui-kit';
- 
- 
- const GridContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    justify-content: center; /* Center the grid horizontally */
-    align-items: center; /* Center the grid vertically */
-    padding: 20px;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    scroll-behavior: smooth; /* Smooth scrolling behavior */
-    white-space: nowrap; /* Prevent cards from wrapping to new lines */
- `;
- 
- 
- const StyledCard = styled(MDBCard)`
-  border-radius: 10px; /* Adjust the border radius as needed for the smoothness */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
-  transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
-  &:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
-  }
-  align-items: center; /* Center items vertically */
- `;
- 
- 
- const StyledCardImage = styled(MDBCardImage)`
- border-radius: 50%; /* Make the image circular */
- width: 100px; /* Adjust the width of the circular image */
- height: 100px; /* Adjust the height of the circular image */
- object-fit: cover; /* Ensure the image covers the circular area */
- margin: auto; /* Center the image horizontally */
- display: block; /* Ensure the image is displayed as a block element */
- `;
- 
 
 function Start() {
   const { globalArray, setGlobalArray } = useGlobalState();
   const [nameInput, setNameInput] = useState('');
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const navigate = useNavigate();
 
   const addItemToArray = (e) => {
-    e.preventDefault(); // Prevent form submission from reloading the page
+    e.preventDefault();
     if (nameInput.trim() !== '') {
-      const newItem = {
-        name: nameInput.trim(),
-        points: 0
-      };
+      const newItem = { name: nameInput.trim(), points: 0 };
       setGlobalArray([...globalArray, newItem]);
-      setNameInput(''); // Clear the input after adding
+      setNameInput('');
     }
   };
 
   const resetGame = () => {
-    // Clear local storage
     localStorage.removeItem('globalArray');
-    // Reset the global array state
     setGlobalArray([]);
   };
 
   const handlePlayClick = () => {
-    // Redirect the user to the Dares page
     navigate('/Camera');
   };
 
-
   return (
-    <div>
-      <h1>Start Page</h1>
-      <form onSubmit={addItemToArray}>
-        <textarea
+    <div className="bg-white p-8">
+      <div className="grid grid-cols-3 gap-4 mb-20">
+        <div className="col-span-2 bg-blue-700 text-white p-10 rounded-xl">
+          <h1 className="text-3xl font-extrabold mb-4">Start Page</h1>
+          <p className="text-xl font-bold mb-4">Below is also the leaderboard</p>
+        </div>
+        <div className="flex flex-col space-y-4 col-span-1">
+          <Button onClick={handlePlayClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl flex-grow">Play</Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" className="flex-grow rounded-xl">Reset Game</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>This will reset the scores and remove all players.</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel as={Button} variant="outline">Cancel</AlertDialogCancel>
+                <AlertDialogAction as={Button} onClick={resetGame} variant="destructive">Yes</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      </div>
+
+      <form onSubmit={addItemToArray} className="flex">
+        <Input
           value={nameInput}
           onChange={(e) => setNameInput(e.target.value)}
           placeholder="Enter a name and click Add Name"
-          rows="3"
-        ></textarea>
-        <button type="submit" className="bg-blue-300 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors">Add Name</button>
+          className="flex-grow w-4/5 mr-2" // Use the remaining space but reserve 1/5 for the button
+        />
+        <Button
+          className="w-1/5 bg-blue-600 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
+        >
+          Add Name
+        </Button>
       </form>
-      <div>
-        <ul>
-        <GridContainer>
-         {globalArray.map((item, index) => (
-           //<><li key={index}>{item.name} - {item.points} Points</li>
- <StyledCard>
-   <MDBCard>
-     <StyledCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='center' alt='...' />
-     <MDBCardBody>
-       <MDBCardTitle>{item.name}</MDBCardTitle>
-       <MDBCardText>
-         <li key={index}>{item.points} Points</li>
-       </MDBCardText>
-     </MDBCardBody>
-   </MDBCard>
- </StyledCard>
-//</>
-         ))}
-   </GridContainer>
-        </ul>
+
+      <div className="flex flex-wrap gap-4 mt-4">
+        {globalArray.map((item, index) => (
+          <Card key={index} className="w-1/5 max-w-full bg-blue-600 text-white">
+            <CardHeader>
+              <CardTitle className="text-xl">{item.points} Points</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription className="text-white">{item.name}</CardDescription>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-      <AlertDialog>
-      <AlertDialogTrigger className="bg-red-300 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition-colors" >Reset Game</AlertDialogTrigger>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-      <AlertDialogDescription>
-        This will reset the scores and remove all players.
-      </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction 
-        onClick={resetGame} 
-      >
-        Yes
-      </AlertDialogAction>
-      
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
-
-<div style={{ marginTop: '10px' }}>
-
-<button 
-        onClick={handlePlayClick} 
-        className="bg-green-300 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition-colors"
-      >
-        Play
-</button>
-</div>
-
-</div>
-  
-  );
-}
-
-/*<AlertDialogAction onClick={resetGame} className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Yes</AlertDialogAction>*/
-
-
-/*
-      <button onClick={resetGame}>Reset Game</button>
     </div>
   );
 }
-*/
-
 
 export default Start;
-
