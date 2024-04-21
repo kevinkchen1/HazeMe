@@ -82,7 +82,7 @@ function Start() {
           className="flex-grow w-4/5 mr-2" // Use the remaining space but reserve 1/5 for the button
         />
         <Button
-          className="w-1/5 bg-blue-600 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
+          className="w-1/3 bg-blue-600 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
         >
           Add Name
         </Button>
@@ -90,7 +90,7 @@ function Start() {
 
       <div className="flex flex-wrap gap-4 mt-4">
         {globalArray.map((item, index) => (
-          <Card key={index} className="w-1/5 max-w-full bg-blue-600 text-white">
+          <Card key={index} className="min-w-[120px] max-w-full bg-blue-600 text-white">
             <CardHeader>
               <CardTitle className="text-xl">{item.points} Points</CardTitle>
             </CardHeader>
