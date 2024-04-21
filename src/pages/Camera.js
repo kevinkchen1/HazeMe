@@ -281,9 +281,10 @@ function Camera() {
       {isCameraOn ? (
         <>
           <video ref={videoRef} className="w-screen h-screen object-cover" autoPlay></video>
-          <div className="absolute top-10 w-full text-center z-20 text-white">
-            Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
+          <div className="absolute top-10 text-center z-20 bg-black text-white px-4 py-2 rounded-lg">
+          Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
           </div>
+
           <div>
             <Button onClick={toggleCamera} className="absolute bottom-10 right-1/2 mr-4 transform -slate-500">Flip Camera</Button>
             <Button onClick={takePicture} className="absolute bottom-10 left-1/2 transform bg-slate-500">Take Picture</Button>
@@ -293,8 +294,8 @@ function Camera() {
       ) : imageSrc ? (
         <>
           <img src={imageSrc} alt="Snapshot" className="w-screen h-screen object-cover absolute top-0 left-0 z-10" />
-          <div className="absolute top-10 w-full text-center z-20 text-white">
-            Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
+          <div className="absolute top-10 text-center z-20 bg-black text-white px-4 py-2 rounded-lg">
+          Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
           </div>
           {content.length > 0 ? (
             <div className="flex justify-end items-end p-10 min-h-screen">

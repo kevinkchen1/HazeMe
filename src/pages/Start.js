@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 
-
 function Start() {
   const { globalArray, setGlobalArray } = useGlobalState();
   const [nameInput, setNameInput] = useState('');
@@ -49,11 +48,11 @@ function Start() {
   };
 
   return (
-    <div className="bg-white p-8">
+    <div className="bg-black min-h-screen p-8 text-white"> {/* Added border-white class */}
       <div className="grid grid-cols-3 gap-4 mb-20">
-        <div className="col-span-2 bg-blue-700 text-white p-10 rounded-xl">
+        <div className="col-span-2 bg-black text-white p-10 border border-white rounded-xl">
           <h1 className="text-3xl font-extrabold mb-4">Start Page</h1>
-          <p className="text-xl font-bold mb-4">Below is also the leaderboard</p>
+          <p className="text-xl font-bold mb-4">Add Players Or Start A Game</p>
         </div>
         <div className="flex flex-col space-y-4 col-span-1">
           <Button onClick={handlePlayClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl flex-grow">Play</Button>
@@ -103,6 +102,7 @@ function Start() {
       </div>
     </div>
   );
+
 }
 
 export default Start;
