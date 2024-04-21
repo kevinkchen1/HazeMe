@@ -114,22 +114,22 @@ function Camera() {
     const postData = {
       contents: [{
         parts: [{
-          text: `give me 3 stupidly funny outdoor dares based on the objects given, along with a number of points per dare based on how hard you think it is. Give your output as a put a json file. Below is an example input and how the dares are, and how your output should be formatted:\n\n` +
+          text: `give me 3 belligerently retarded funny outdoor/outside dares based on the objects given, along with a number of points per dare based on how hard you think it is( only numbers between 1 to 10). Give your output as a put a json file. Below is an example input and how the dares are, and how your output should be formatted:\n\n` +
             "Objects detected: Chex Mix, Diet Coke, Popcorn, Water Bottle, Phone" +
             "```json\n" +
             "{\n" +
             "  \"dares\": [\n" +
             "    {\n" +
             "      \"dare\": \"Find a squirrel and see if you can convince it to take a Chex Mix piece from your hand.\",\n" + // Added comma here
-            "      \"points\": \"43 points\"\n" +
+            "      \"points\": \"2 points\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"dare\": \"Sip the Diet Coke, then pretend to be a park fountain and try spitting the soda into the air and catching it back in your mouth (be mindful of surroundings and avoid getting others wet).\",\n" + // Added comma here
-            "      \"points\": \"213 points\"\n" +
+            "      \"points\": \"3 points\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"dare\": \"Balance the phone on your head and then do 5 push ups.\",\n" + // Added comma here
-            "      \"points\": \"5643 points\"\n" +
+            "      \"points\": \"7 points\"\n" +
             "    }\n" +
             "  ]\n" +
             "}\n" +
