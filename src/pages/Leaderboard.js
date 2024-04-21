@@ -30,7 +30,7 @@ function Leaderboard() {
 
         return (
             <div className="bg-[#F5F5F7] h-screen flex flex-col items-center p-4">
-                <img src="wouldja.png" alt="Wouldja Logo" className="w-48 h-24 mt-4" />              
+                <img src="wouldja.png" alt="Wouldja Logo" className="w-60 h-24 mt-4" />              
                  <h1 className="font-normal text-3xl text-gray-800 mt-4">Leaderboard</h1>
                 <div className="w-full flex flex-col items-center mt-4">
                     {sortedPlayers.map((player, index) => (
