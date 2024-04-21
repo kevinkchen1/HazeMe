@@ -8,8 +8,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 import {
   AlertDialog,
@@ -21,8 +21,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 function Start() {
   const { globalArray, setGlobalArray } = useGlobalState();
@@ -48,17 +48,14 @@ function Start() {
   };
 
   return (
-    <div className="bg-black min-h-screen p-8 text-white"> {/* Added border-white class */}
-      <div className="grid grid-cols-3 gap-4 mb-20">
-        <div className="col-span-2 bg-black text-white p-10 border border-white rounded-xl">
-          <h1 className="text-3xl font-extrabold mb-4">Start Page</h1>
-          <p className="text-xl font-bold mb-4">Add Players Or Start A Game</p>
-        </div>
-        <div className="flex flex-col space-y-4 col-span-1">
-          <Button onClick={handlePlayClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl flex-grow">Play</Button>
+    <div className="bg-black min-h-screen text-white ">
+      <div className="mb-4">
+          <img src="people.jpg" alt="Start Game Image" className="w-full h-auto mb-4 rounded-b-3xl" />
+        <div className="flex flex-col grid grid-cols-2 gap-4 mr-4 ml-4">
+          <Button onClick={handlePlayClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-10 px-4 rounded-xl">Play</Button>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive" className="flex-grow rounded-xl">Reset Game</Button>
+              <Button variant="destructive" className="rounded-xl  py-10 px-4 ">Reset Game</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
@@ -74,7 +71,7 @@ function Start() {
         </div>
       </div>
 
-      <form onSubmit={addItemToArray} className="flex">
+      <form onSubmit={addItemToArray} className="flex m-4">
         <Input
           value={nameInput}
           onChange={(e) => setNameInput(e.target.value)}
@@ -82,27 +79,26 @@ function Start() {
           className="flex-grow w-4/5 mr-2" // Use the remaining space but reserve 1/5 for the button
         />
         <Button
-          className="w-1/3 bg-blue-600 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
+          className="w-1/3 bg-slate-600 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded"
         >
           Add Name
         </Button>
       </form>
 
-      <div className="flex flex-wrap gap-4 mt-4">
+      <div className="flex flex-wrap grid grid-cols-2 gap-4 m-4">
         {globalArray.map((item, index) => (
-          <Card key={index} className="min-w-[120px] max-w-full bg-blue-600 text-white">
+          <Card key={index} className="min-w-[120px] max-w-full bg-slate-600 text-white">
             <CardHeader>
-              <CardTitle className="text-xl">{item.points} Points</CardTitle>
+              <CardTitle className="text-2xl font-bold">{item.points} Points</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-white">{item.name}</CardDescription>
+              <CardDescription className="text-white text-lg font-bold">{item.name}</CardDescription>
             </CardContent>
           </Card>
         ))}
       </div>
     </div>
   );
-
 }
 
 export default Start;
