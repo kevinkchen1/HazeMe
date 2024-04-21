@@ -203,7 +203,7 @@ function Camera() {
       }
     } finally {
       setDareLoading(false); // Hide loading state for dare generation
-
+      setLoading(false)
     }
   };
 
