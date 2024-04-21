@@ -114,7 +114,7 @@ function Camera() {
     const postData = {
       contents: [{
         parts: [{
-          text: `give me 3 belligerently retarded funny outdoor/outside dares based on the objects given, along with a number of points per dare based on how hard you think it is( only numbers between 1 to 10). Give your output as a put a json file. Below is an example input and how the dares are, and how your output should be formatted:\n\n` +
+          text: `give me 3 stupid funny outdoor/outside dares based on the objects given, along with a number of points per dare based on how hard you think it is( only numbers between 1 to 10). Give your output as a put a json file. Below is an example input and how the dares are, and how your output should be formatted:\n\n` +
             "Objects detected: Chex Mix, Diet Coke, Popcorn, Water Bottle, Phone" +
             "```json\n" +
             "{\n" +
@@ -253,17 +253,24 @@ const completeDare = (dareIndex) => {
       {isCameraOn ? (
         <>
           <video ref={videoRef} className="w-screen h-screen object-cover" autoPlay></video>
-          <div className="absolute top-10 w-full text-center z-20 text-white">
-            Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
-          </div>
+          <div className="absolute top-10 text-center z-20 bg-black text-white px-4 py-2 rounded-lg">
+    Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
+</div>
+
+
+
           <Button onClick={takePicture} className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-500">Take Picture</Button>
         </>
       ) : imageSrc ? (
         <>
           <img src={imageSrc} alt="Snapshot" className="w-screen h-screen object-cover absolute top-0 left-0 z-10" />
-          <div className="absolute top-10 w-full text-center z-20 text-white">
-            Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
-          </div>
+          <div className="absolute top-10 text-center z-20 bg-black text-white px-4 py-2 rounded-lg">
+    Current Turn: {currentPlayer.name} - {currentPlayer.points} Points
+</div>
+
+
+
+
           {content.length > 0 ? (
             <div className="flex justify-end items-end p-10 min-h-screen">
               <Card className="w-[380px] bg-slate-700 text-white z-20">
