@@ -49,6 +49,7 @@ function Start() {
 
   return (
     <div className="bg-black min-h-screen p-8 text-white"> {/* Added border-white class */}
+    
       <div className="grid grid-cols-3 gap-4 mb-20">
         <div className="col-span-2 bg-black text-white p-10 border border-white rounded-xl">
           <h1 className="text-3xl font-extrabold mb-4">Start Page</h1>
